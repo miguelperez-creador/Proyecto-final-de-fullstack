@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Ticket #{{ ticket.id }} - {{ ticket.title }}</h3>
+    <a href="{{ url_for('tickets_list') }}" class="btn btn-secondary">Volver</a>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><strong>Estado:</strong> <span class="badge bg-secondary">{{ ticket.status }}</span></p>
+      <p><strong>Prioridad:</strong> <span class="badge bg-info">{{ ticket.priority }}</span></p>
+      <p><strong>Creado por:</strong> {{ ticket.created_by_name }}</p>
+      <p><strong>Asignado a:</strong> {{ ticket.assigned_to_name or "Sin asignar" }}</p>
+      <p><strong>Descripción:</strong></p>
+      <p>{{ ticket.description }}</p>
+    </div>
+  </div>
+
+  {% if session.get("user_role") in ["ADMIN","AGENT"] %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <form method="post" action="{{ url_for('ticket_update', ticket_id=ticket.id) }}">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="form-label">Estado</label>
+            <select name="status" class="form-select">
+              <option value="OPEN" {% if ticket.status == "OPEN" %}selected{% endif %}>OPEN</option>
+              <option value="IN_PROGRESS" {% if ticket.status == "IN_PROGRESS" %}selected{% endif %}>IN_PROGRESS</option>
+              <option value="RESOLVED" {% if ticket.status == "RESOLVED" %}selected{% endif %}>RESOLVED</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Asignar a</label>
+            <select name="assigned_to" class="form-select">
+              <option value="">Sin asignar</option>
+              {% for a in agents %}
+                <option value="{{ a.id }}" {% if ticket.assigned_to == a.id %}selected{% endif %}>{{ a.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Actualizar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+
+  <h5>Comentarios</h5>
+  <ul class="list-group mb-3" id="comments-list">
+    {% for c in comments %}
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <strong>{{ c.user_name }}</strong>
+          <small>{{ c.created_at }}</small>
+        </div>
+        <p class="mb-0">{{ c.comment }}</p>
+      </li>
+    {% else %}
+      <li class="list-group-item"><em>No hay comentarios.</em></li>
+    {% endfor %}
+  </ul>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="comment-form" method="post" action="{{ url_for('comment_add', ticket_id=ticket.id) }}">
+        <div class="mb-3">
+          <label class="form-label">Agregar comentario</label>
+          <textarea name="comment" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="button" id="comment-ajax" class="btn btn-outline-secondary">Agregar (AJAX)</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
