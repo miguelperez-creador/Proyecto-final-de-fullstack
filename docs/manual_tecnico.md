@@ -53,7 +53,7 @@ Proyecto-final-de-fullstack/
 
 El sistema está compuesto por las entidades principales **Users**, **Tickets** y **Ticket_Comments**, las cuales se relacionan entre sí para permitir la gestión completa del sistema.
 
-![Diagrama ER](er_diagram.png)
+![Diagrama ER]Diagrama.png
 
 ---
 
@@ -111,7 +111,7 @@ Permite el seguimiento de los tickets mediante comentarios asociados.
 * Protección de rutas mediante roles
 
 ![Login](screenshots/login.png)
-![Register](screenshots/register.png)
+![Register](screenshots/Register.png)
 
 ---
 
