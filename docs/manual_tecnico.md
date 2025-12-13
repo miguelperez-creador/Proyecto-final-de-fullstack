@@ -53,8 +53,8 @@ Proyecto-final-de-fullstack/
 
 El sistema está compuesto por las entidades principales **Users**, **Tickets** y **Ticket_Comments**, las cuales se relacionan entre sí para permitir la gestión completa del sistema.
 
-![Diagrama ER]Diagrama.png
 
+![Diagrama ER](screenshots/Diagrama.png)
 ---
 
 ### 4.2 Descripción de Tablas
