@@ -344,12 +344,12 @@ def user_change_role(user_id):
     flash("Rol actualizado.", "success")
     return redirect(url_for("users_list"))
 
-# ---- Utility route para crear hash de contraseña (solo local, no en producción) ----
+# ---- Utility route para crear hash de contraseña 
 
 
 @app.route("/generate_hash/<password>")
 def gen_hash(password):
-    # Uso local: visita /generate_hash/tuContraseña para obtener hash (solo en entorno dev)
+    # Uso local: visita /generate_hash/tuContraseña para obtener hash 
     h = generate_password_hash(password)
     return {"hash": h}
 
