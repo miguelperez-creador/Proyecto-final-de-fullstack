@@ -27,24 +27,23 @@ El proyecto sigue una arquitectura MVC (Modelo – Vista – Controlador) simpli
 
 ### 3.1 Estructura de Carpetas
 
-```
 Proyecto-final-de-fullstack/
 │
-├─ app.py                # Archivo principal de la aplicación
-├─ config.py             # Configuración del proyecto
-├─ models.py             # Modelos de base de datos
-├─ routes.py             # Rutas y vistas
-├─ requirements.txt      # Dependencias del proyecto
+├─ app.py # Archivo principal de la aplicación
+├─ config.py # Configuración del proyecto
+├─ models.py # Modelos de base de datos
+├─ routes.py # Rutas y vistas
+├─ requirements.txt # Dependencias del proyecto
 │
-├─ templates/            # Plantillas HTML
-├─ static/               # CSS, JS e imágenes
-├─ docs/                 # Documentación
-│  ├─ manual_tecnico.md
-│  ├─ manual_usuario.md
-│  ├─ er_diagram.png
-│  └─ screenshots/
-└─ venv/                 # Entorno virtual (no incluido en GitHub)
-```
+├─ templates/ # Plantillas HTML
+├─ static/ # CSS, JS e imágenes
+├─ docs/ # Documentación
+│ ├─ manual_tecnico.md
+│ ├─ manual_usuario.md
+│ ├─ er_diagram.png
+│ └─ screenshots/
+└─ venv/ # Entorno virtual (no incluido en GitHub)
+
 
 ---
 
@@ -112,6 +111,7 @@ Permite el seguimiento de los tickets mediante comentarios asociados.
 * Protección de rutas mediante roles
 
 ![Login](screenshots/login.png)
+![Register](screenshots/register.png)
 
 ---
 
