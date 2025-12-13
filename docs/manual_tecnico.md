@@ -137,7 +137,7 @@ Muestra todos los tickets disponibles según el rol del usuario.
 
 Permite visualizar la información completa del ticket, agregar comentarios y actualizar su estado.
 
-![Detalle del Ticket](screenshots/ticket_detail.png)
+![ticket_detail](screenshots/ticket_detail.png)
 
 ---
 
