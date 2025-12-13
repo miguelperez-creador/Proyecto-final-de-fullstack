@@ -31,5 +31,5 @@
 - Cómo navegar la interfaz
 - Recomendaciones para evitar errores
 
-## 7. Contacto / Soporte
+## 7. Contacto / Soporte 
 - A quién contactar si hay problemas
