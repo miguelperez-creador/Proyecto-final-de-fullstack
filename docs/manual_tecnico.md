@@ -139,7 +139,8 @@ Permite visualizar la información completa del ticket, agregar comentarios y ac
 
 
 
-![Detalles de Ticket](screenshots/ticket_detail.png)
+![Detalles de Ticket](screenshots/ticket_detail%20(2).png)
+
 
 
 
