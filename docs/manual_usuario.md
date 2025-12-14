@@ -1,35 +1,81 @@
-<!-- MANUAL DEL USUARIO -->
+Manual de Usuario
+1. Introducción
 
-# Manual de Usuario
+Propósito del sistema: Gestionar tickets de soporte para resolver incidencias de manera organizada y rápida.
 
-## 1. Introducción
-- Propósito del sistema
-- Alcance de la aplicación
-- Público objetivo (usuarios finales)
+Alcance de la aplicación: Web App de Help Desk con funcionalidades de creación, visualización y actualización de tickets, control de usuarios y roles.
 
-## 2. Requisitos del sistema
-- Navegador recomendado
-- Python / librerías necesarias
-- Conexión a internet / servidor
+Público objetivo: Usuarios finales, agentes de soporte y administradores del sistema.
 
-## 3. Acceso al sistema
-- Cómo registrarse (si aplica)
-- Cómo iniciar sesión
-- Recuperar contraseña (si aplica)
+2. Requisitos del sistema
 
-## 4. Funcionalidades
-- Descripción de cada función principal:
-  - Crear, editar, eliminar registros (libros, tickets, usuarios)
-  - Buscar información
-  - Visualizar reportes
-- Explicaciones paso a paso con capturas de pantalla si se desea
+Navegador recomendado: Chrome, Firefox o Edge actualizado.
 
-## 5. Roles de usuario
-- Qué puede hacer cada rol (Admin, Bibliotecario, Lector, etc.)
+Python 3.10+ y librerías necesarias (Flask, MariaDB, Bootstrap, jQuery).
 
-## 6. Consejos prácticos
-- Cómo navegar la interfaz
-- Recomendaciones para evitar errores
+Conexión a internet y acceso al servidor de la aplicación.
 
-## 7. Contacto / Soporte 
-- A quién contactar si hay problemas
+3. Acceso al sistema
+Cómo registrarse
+
+Solo usuarios autorizados pueden registrarse (dependiendo de la política del sistema).
+
+Cómo iniciar sesión
+
+Ingresar al portal de la aplicación.
+
+Introducir usuario y contraseña.
+
+Hacer clic en “Iniciar sesión”.
+
+Recuperar contraseña
+
+Si olvidó la contraseña, hacer clic en “Recuperar contraseña” y seguir las instrucciones enviadas al correo.
+
+4. Funcionalidades
+Crear un ticket
+
+Iniciar sesión como User.
+
+Ir a la sección “Crear Ticket”.
+
+Completar los campos: título, descripción, categoría y prioridad.
+
+Hacer clic en “Enviar” para registrar el ticket.
+
+Ver tickets
+
+Los usuarios pueden ver sus propios tickets.
+
+Los agentes pueden ver todos los tickets asignados a ellos.
+
+Los administradores pueden ver todos los tickets del sistema.
+
+Actualizar tickets
+
+Abrir el ticket que deseas actualizar.
+
+Modificar los campos permitidos según tu rol (estado, prioridad, comentarios).
+
+Guardar los cambios haciendo clic en “Actualizar”.
+
+Buscar tickets
+
+Usar la barra de búsqueda o filtros para encontrar tickets por ID, estado o prioridad.
+
+5. Roles de usuario
+Rol	Qué puede hacer
+Admin	Ver, crear, actualizar y eliminar todos los tickets; gestionar usuarios y roles
+Agent	Ver y actualizar tickets asignados; agregar comentarios y cambiar estado
+User	Crear tickets, ver sus propios tickets, agregar comentarios
+6. Consejos prácticos
+
+Navegar la interfaz usando el menú principal.
+
+Evitar cerrar la sesión sin guardar cambios en un ticket.
+
+Usar filtros y búsqueda para encontrar tickets rápidamente.
+
+7. Contacto / Soporte
+
+Para problemas técnicos o dudas, contactar al administrador del sistema a través del correo de soporte.

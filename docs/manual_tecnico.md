@@ -9,7 +9,7 @@ Permitir que los usuarios creen tickets de soporte y que los administradores pue
 
 ---
 
-## 2. Tecnologías Utilizadas
+## 2. Tecnologías  que son utilizadas
 
 * **Backend:** Python, Flask
 * **Frontend:** HTML, CSS, Bootstrap
