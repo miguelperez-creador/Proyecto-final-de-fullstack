@@ -139,7 +139,8 @@ Permite visualizar la información completa del ticket, agregar comentarios y ac
 
 
 
-![Detalles de Ticket](screenshots/ticket_detail.png)
+![Detalles de Ticket](screenshots/ticket_detail.png) 
+
 
 
 
@@ -172,7 +173,7 @@ Funcionalidad exclusiva del rol Administrador. Permite visualizar usuarios y asi
 
 ---
 
-## 8. Dependencias
+## 8. Dependencias 
 
 Las dependencias del proyecto se encuentran en el archivo `requirements.txt`, entre las más importantes:
 
