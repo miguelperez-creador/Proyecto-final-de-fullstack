@@ -1,81 +1,74 @@
-Manual de Usuario
-1. Introducción
+# 📘 Manual de Usuario – Sistema Help Desk
 
-Propósito del sistema: Gestionar tickets de soporte para resolver incidencias de manera organizada y rápida.
+## 🔐 1. Inicio de Sesión
 
-Alcance de la aplicación: Web App de Help Desk con funcionalidades de creación, visualización y actualización de tickets, control de usuarios y roles.
+Para acceder al sistema:
 
-Público objetivo: Usuarios finales, agentes de soporte y administradores del sistema.
+1. Ingresar el correo electrónico y la contraseña registrada.
+2. Si no se posee cuenta, hacer clic en **Create New Account** para registrarse.
 
-2. Requisitos del sistema
+> Nota: Al registrarse, el rol asignado automáticamente es **USER**.
 
-Navegador recomendado: Chrome, Firefox o Edge actualizado.
+---
 
-Python 3.10+ y librerías necesarias (Flask, MariaDB, Bootstrap, jQuery).
+## 🎫 2. Crear Ticket
 
-Conexión a internet y acceso al servidor de la aplicación.
+> Disponible únicamente para usuarios con rol **USER**.
 
-3. Acceso al sistema
-Cómo registrarse
+1. Una vez iniciado sesión, en el **Dashboard** aparecerá la opción **New Ticket**.
+2. Completar los campos:
 
-Solo usuarios autorizados pueden registrarse (dependiendo de la política del sistema).
+   * Título del ticket
+   * Descripción
+3. Hacer clic en **Enviar** para registrar el ticket.
 
-Cómo iniciar sesión
+---
 
-Ingresar al portal de la aplicación.
+## 📋 3. Ver Tickets
 
-Introducir usuario y contraseña.
+* Acceder a la sección **Tickets** en el **navbar**.
+* Ver la lista de tickets según el rol:
 
-Hacer clic en “Iniciar sesión”.
+  * **USER:** Sus propios tickets
+  * **AGENT:** Tickets asignados
+  * **ADMIN:** Todos los tickets
+* Para ver más detalles de un ticket, hacer clic en el botón **See** correspondiente.
 
-Recuperar contraseña
+---
 
-Si olvidó la contraseña, hacer clic en “Recuperar contraseña” y seguir las instrucciones enviadas al correo.
+## 👥 4. Roles y Permisos
 
-4. Funcionalidades
-Crear un ticket
+### 🔴 Admin
 
-Iniciar sesión como User.
+El **Admin** puede:
 
-Ir a la sección “Crear Ticket”.
+* Ver la lista de todos los usuarios registrados
+* Asignar y modificar roles de usuarios
+* Asignar tickets a agentes
+* Cambiar el estado de cualquier ticket
 
-Completar los campos: título, descripción, categoría y prioridad.
+> El Admin **no puede crear tickets**.
 
-Hacer clic en “Enviar” para registrar el ticket.
+### 🟡 Agent
 
-Ver tickets
+El **Agent** puede:
 
-Los usuarios pueden ver sus propios tickets.
+* Ver y manejar los tickets asignados
+* Actualizar el estado de los tickets
+* Agregar comentarios a los tickets
 
-Los agentes pueden ver todos los tickets asignados a ellos.
+> El Agent **no puede crear tickets ni ver la lista de usuarios**.
 
-Los administradores pueden ver todos los tickets del sistema.
+### 🟢 User
 
-Actualizar tickets
+El **User** puede:
 
-Abrir el ticket que deseas actualizar.
+* Crear nuevos tickets
+* Ver el estado de sus propios tickets
+* Agregar comentarios a sus tickets
 
-Modificar los campos permitidos según tu rol (estado, prioridad, comentarios).
+> El User **no puede modificar tickets de otros usuarios ni gestionar roles**.
 
-Guardar los cambios haciendo clic en “Actualizar”.
+---
 
-Buscar tickets
-
-Usar la barra de búsqueda o filtros para encontrar tickets por ID, estado o prioridad.
-
-5. Roles de usuario
-Rol	Qué puede hacer
-Admin	Ver, crear, actualizar y eliminar todos los tickets; gestionar usuarios y roles
-Agent	Ver y actualizar tickets asignados; agregar comentarios y cambiar estado
-User	Crear tickets, ver sus propios tickets, agregar comentarios
-6. Consejos prácticos
-
-Navegar la interfaz usando el menú principal.
-
-Evitar cerrar la sesión sin guardar cambios en un ticket.
-
-Usar filtros y búsqueda para encontrar tickets rápidamente.
-
-7. Contacto / Soporte
-
-Para problemas técnicos o dudas, contactar al administrador del sistema a través del correo de soporte.
+**Documento elaborado con fines académicos como parte del proyecto final del curso de Full Stack.**

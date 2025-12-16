@@ -1,198 +1,215 @@
-# Manual Técnico
+# 📖 Manual Técnico – Sistema Help Desk
 
-## 1. Descripción del Proyecto
+## 1. Descripción General
 
-El presente proyecto corresponde a una aplicación **Full Stack tipo Help Desk**, desarrollada como proyecto final del curso de Full Stack. El sistema permite la gestión de tickets de soporte, control de usuarios y manejo de roles, facilitando la comunicación entre usuarios finales y administradores.
-
-**Objetivo principal:**
-Permitir que los usuarios creen tickets de soporte y que los administradores puedan gestionarlos, asignarlos, dar seguimiento y resolverlos.
+Este documento describe la arquitectura, configuración y funcionamiento técnico del **Sistema de Help Desk**, desarrollado como **proyecto final Full Stack**. La aplicación permite la gestión de tickets de soporte, usuarios y roles, integrando frontend, backend y base de datos.
 
 ---
 
-## 2. Tecnologías  que son utilizadas
+## 🏗️ 2. Arquitectura del Sistema
 
-* **Backend:** Python, Flask
-* **Frontend:** HTML, CSS, Bootstrap
-* **Base de Datos:** MySQL / MariaDB
-* **ORM:** SQLAlchemy
-* **Autenticación:** Flask-Login
-* **Control de Roles:** Flask-Principal
-* **Herramientas:** Visual Studio Code, Git, GitHub
+El sistema está dividido en tres capas principales:
 
----
+### 🎨 Front-End
 
-## 3. Arquitectura del Proyecto
-
-El proyecto sigue una arquitectura MVC (Modelo – Vista – Controlador) simplificada, donde Flask actúa como controlador principal.
-
-### 3.1 Estructura de Carpetas
-
-Proyecto-final-de-fullstack/
-│
-├─ app.py # Archivo principal de la aplicación
-├─ config.py # Configuración del proyecto
-├─ models.py # Modelos de base de datos
-├─ routes.py # Rutas y vistas
-├─ requirements.txt # Dependencias del proyecto
-│
-├─ templates/ # Plantillas HTML
-├─ static/ # CSS, JS e imágenes
-├─ docs/ # Documentación
-│ ├─ manual_tecnico.md
-│ ├─ manual_usuario.md
-│ ├─ er_diagram.png
-│ └─ screenshots/
-└─ venv/ # Entorno virtual (no incluido en GitHub)
-
+El **front-end** contiene toda la interfaz visual que el usuario ve al acceder a la aplicación. Está construido con **HTML, CSS, Bootstrap y jQuery**.
+La información que se muestra depende del **rol del usuario autenticado**, controlando el acceso a botones, formularios y vistas.
 
 ---
 
-## 4. Base de Datos
+### ⚙️ Back-End
 
-### 4.1 Diagrama Entidad–Relación (ER)
+El **back-end** contiene la lógica principal del sistema y está desarrollado con **Python y Flask**.
+Desde aquí se manejan:
 
-El sistema está compuesto por las entidades principales **Users**, **Tickets** y **Ticket_Comments**, las cuales se relacionan entre sí para permitir la gestión completa del sistema.
+* Autenticación y sesiones de usuario
+* Autorización por roles
+* Rutas (endpoints)
+* Lógica de negocio de tickets y usuarios
+* Comunicación con la base de datos
 
+Los datos se envían a las vistas HTML mediante plantillas Jinja2.
 
-![Diagrama ER](screenshots/Diagrama.png)
 ---
 
-### 4.2 Descripción de Tablas
+### 🗄️ Base de Datos
+
+La base de datos es **MariaDB**, y contiene **tres tablas principales**:
+
+* **users**
+* **tickets**
+* **ticket_comments**
+
+Estas tablas permiten manejar usuarios, tickets y el historial de comentarios.
+
+---
+
+## 🔄 3. Modificaciones y Funcionalidades Implementadas
+
+Durante el desarrollo del proyecto se implementaron las siguientes mejoras:
+
+* Se creó el endpoint **register** para el registro de nuevos usuarios.
+
+  * Por defecto, los usuarios creados reciben el rol **USER**.
+
+* Se modificó la forma de acceder al detalle de un ticket:
+
+  * En lugar de usar el ID directamente, se agregó un **botón de acceso**, mejorando la experiencia del usuario.
+
+* Los usuarios con rol **ADMIN** y **AGENT** no pueden crear tickets.
+
+  * Solo los usuarios **USER** tienen permiso para crear nuevos tickets.
+
+* Se añadieron **filtros en la lista de tickets**:
+
+  * Filtro por **status**
+  * Filtro por **priority**
+  * Orden por fecha de creación
+
+---
+
+## 🗄️ 4. Configuración de la Base de Datos
+
+La base de datos utilizada es **MariaDB**.
+
+### 4.1 Creación de la Base de Datos
+
+```sql
+CREATE DATABASE helpdesk_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE helpdesk_db;
+```
+
+### 4.2 Creación de Tablas
 
 #### Tabla: users
 
-* id (PK)
-* name
-* email
-* password_hash
-* role
-
-**Descripción:**
-Almacena la información de los usuarios registrados en el sistema y su rol correspondiente.
+```sql
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'AGENT', 'USER') NOT NULL DEFAULT 'USER',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
 
 ---
 
 #### Tabla: tickets
 
-* id (PK)
-* title
-* description
-* status
-* priority
-* created_by (FK → users.id)
-* assigned_to (FK → users.id)
-* created_at
-
-**Descripción:**
-Registra los tickets creados por los usuarios y su estado dentro del sistema.
+```sql
+CREATE TABLE tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('OPEN', 'IN_PROGRESS', 'RESOLVED') NOT NULL DEFAULT 'OPEN',
+    priority ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL DEFAULT 'MEDIUM',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_by INT NOT NULL,
+    assigned_to INT NULL,
+    CONSTRAINT fk_tickets_created_by FOREIGN KEY (created_by) REFERENCES users(id),
+    CONSTRAINT fk_tickets_assigned_to FOREIGN KEY (assigned_to) REFERENCES users(id)
+);
+```
 
 ---
 
 #### Tabla: ticket_comments
 
-* id (PK)
-* comment
-* ticket_id (FK → tickets.id)
-* user_id (FK → users.id)
-* created_at
-
-**Descripción:**
-Permite el seguimiento de los tickets mediante comentarios asociados.
-
----
-
-## 5. Funcionalidades del Sistema
-
-### 5.1 Autenticación
-
-* Registro de usuarios
-* Inicio de sesión
-* Cierre de sesión
-* Protección de rutas mediante roles
-
-![Login](screenshots/login.png)
-![Register](screenshots/Register.png)
+```sql
+CREATE TABLE ticket_comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    user_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_comments_ticket FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+    CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
 
 ---
 
-### 5.2 Dashboard
+## ⚙️ 5. Configuración del Entorno
 
-Una vez autenticado, el usuario accede al panel principal desde donde puede navegar a las funcionalidades disponibles según su rol.
+### Archivo `.env`
 
-![Dashboard](screenshots/dashboard.png)
+El proyecto utiliza variables de entorno para la configuración:
 
----
-
-### 5.3 Gestión de Tickets
-
-#### Listado de Tickets
-
-Muestra todos los tickets disponibles según el rol del usuario.
-
-![Listado de Tickets](screenshots/tickets_list.png)
+```env
+SECRET_KEY="final_proyect"
+DB_HOST="localhost"
+DB_USER="your_user"
+DB_PASSWORD="your_password"
+DB_NAME="helpdesk_db"
+```
 
 ---
 
-#### Detalle del Ticket
+## 📦 6. Instalación y Ejecución
 
-Permite visualizar la información completa del ticket, agregar comentarios y actualizar su estado.
+### Instalación de Dependencias
 
+```bash
+pip install -r requirements.txt
+```
 
+### Ejecución del Proyecto
 
-![Detalles de Ticket](screenshots/ticket_detail.png) 
+```bash
+# Windows
+python app.py
 
-
-
-
-
-
----
-
-### 5.4 Gestión de Usuarios
-
-Funcionalidad exclusiva del rol Administrador. Permite visualizar usuarios y asignar roles.
-
-![Gestión de Usuarios](screenshots/users_list.png)
+# macOS / Linux
+python3 app.py
+```
 
 ---
 
-## 6. Roles y Permisos
+## 🛣️ 7. Rutas Principales del Sistema
 
-* **Admin:** Gestión total del sistema, usuarios y tickets.
-* **Agente/Bibliotecario:** Gestión y seguimiento de tickets asignados.
-* **Usuario/Lector:** Creación y seguimiento de sus propios tickets.
+* **dashboard**
+  Panel principal con resumen de tickets y accesos principales.
 
----
+* **register**
+  Creación de nuevos usuarios.
 
-## 7. Seguridad
+* **login**
+  Inicio de sesión del usuario.
 
-* Contraseñas almacenadas usando hash
-* Validación de formularios
-* Protección de rutas según roles
-* Control de acceso mediante Flask-Login
+* **logout**
+  Cierre de sesión.
 
----
+* **tickets_list**
+  Lista de tickets con filtros.
 
-## 8. Dependencias 
+* **ticket_new**
+  Creación de un nuevo ticket (solo USER).
 
-Las dependencias del proyecto se encuentran en el archivo `requirements.txt`, entre las más importantes:
+* **ticket_detail**
+  Visualización del detalle de un ticket.
 
-* Flask
-* Flask-Login
-* Flask-Principal
-* Flask-SQLAlchemy
-* Werkzeug
 
----
 
-## 9. Configuración del Proyecto
+* **comment_add**
+  Agregar comentarios a un ticket.
 
-1. Crear y activar entorno virtual
-2. Instalar dependencias con `pip install -r requirements.txt`
-3. Configurar variables de entorno
-4. Crear base de datos
-5. Ejecutar la aplicación con `python app.py`
+* **users_list**
+  Lista de usuarios registrados.
+
+* **user_change_role**
+  Cambio de rol (exclusivo para ADMIN).
 
 ---
 
+## 🔐 8. Roles del Sistema
 
+* **ADMIN:** Control total del sistema y gestión de usuarios.
+* **AGENT:** Seguimiento y manejo de tickets asignados.
+* **USER:** Creación y seguimiento de tickets propios.
+
+---
+
+**Documento elaborado con fines académicos como parte del proyecto final del curso de Full Stack.**
