@@ -1,4 +1,13 @@
 # 🚀 Sistema Help Desk – Proyecto Full Stack
+## Contenido del archivo comprimido
+
+Este archivo contiene:
+- Código fuente del proyecto
+- Manual técnico
+- Documentación requerida
+
+Para verlo, descargar el archivo .zip.
+
 
 ## 🖥️ Tecnologías Usadas
 
